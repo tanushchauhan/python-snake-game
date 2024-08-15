@@ -49,49 +49,44 @@ def encryt(text_in_binary_list, key):
             encryted_text_in_binary += i
     return encryted_text_in_binary
 
-def make_short(bin):
-    c = 0
-    temp = ""
-    z = []
-    for i in bin:
-        c += 1
-        if len(temp) == 2:
-            z.append(temp)
-            temp = ""
-            temp += str(i)
-        else:
-            temp += str(i)
-            if len(temp) == 2:
-                z.append(temp)
-                temp = ""
-    indices_10 = [i for i, x in enumerate(z) if x == "10"]
-    for i in indices_10:
-        z[i] = "a"
-    indices_01 = [i for i, x in enumerate(z) if x == "01"]
-    for i in indices_01:
-        z[i] = "b"
-    indices_11 = [i for i, x in enumerate(z) if x == "11"]
-    for i in indices_11:
-        z[i] = "c" 
-    indices_00 = [i for i, x in enumerate(z) if x == "00"]
-    for i in indices_00:
-        z[i] = "d"
-    short_1_bin = ""
-    for i in z:
-        short_1_bin += i
-    c = 0
-    temp = ""
-    z_2 = []
-    for i in z:
-        c += 1
-        if len(temp) == 2:
-            z_2.append(temp)
-            temp = ""
-            temp += str(i)
-        else:
+def make_short(bin_str):
+    def replace_pairs(data, pairs):
+        for pair, replacement in pairs.items():
+            indices = [i for i, x in enumerate(data) if x == pair]
+            for i in indices:
+                try:
+                    data[i] = replacement
+                except IndexError:
+                    pass
+        return data
+
+    def split_to_pairs(data):
+        pairs = []
+        temp = ""
+        for i in data:
             temp += str(i)
             if len(temp) == 2:
-                z_2.append(temp)
+                pairs.append(temp)
                 temp = ""
-    z = z_2
-    indices_ab = [i for i, x in enumerate(z) if x == "ab"]
+        return pairs
+
+    z = split_to_pairs(bin_str)
+
+    pair_replacements_1 = {"10": "a", "01": "b", "11": "c", "00": "d"}
+    z = replace_pairs(z, pair_replacements_1)
+    
+    z = split_to_pairs(z)
+
+    pair_replacements_2 = {
+        "ab": "q", "ac": "w", "ad": "!", "ba": "e", "bc": "r", "bd": "g",
+        "ca": "t", "cb": "%", "cd": "&", "aa": "@", "bb": "#", "cc": "o",
+        "dc": "j", "db": "k", "da": "l"
+    }
+    z_2 = replace_pairs(z, pair_replacements_2)
+    
+    z_2.reverse()
+    z_2.append("--9")
+    z_2.reverse()
+    z_2.append("9--")
+    
+    return ''.join(z_2)
