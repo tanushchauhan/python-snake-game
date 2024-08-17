@@ -53,7 +53,7 @@ class RulesGiver(Turtle):
         self.goto(0,230)
         self.write("The rules are simple, get the most score.",align="center",font=('Courier', 15, 'normal'))
         self.goto(0,200)
-        self.write("Score will increase when you eat food (blue color dots).",align="center",font=('Courier', 15, 'normal'))
+        self.write("Score will increase when you eat food.",align="center",font=('Courier', 15, 'normal'))
         self.goto(0,170)
         self.write("Use Up, Down, Right and Left arrow for controls.",align="center",font=('Courier', 15, 'normal'))
         self.goto(0,140)
