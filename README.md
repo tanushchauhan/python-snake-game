@@ -22,7 +22,7 @@ Start the game
   python snake_game_main.py
 ```
 
-Make sure you have python installed before trying to run this game.
+:warning: This program does not require any external modules to run, hence no requirements.txt file. If you are not able to launch the game, make sure you are installing turtle when you are installing python.
 
 ## Authors
 
